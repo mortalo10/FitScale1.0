@@ -5,11 +5,13 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const db = require("./models");
 const Role = db.role;
+const path = require('path');
+const app = express();
+const cookieSession = require("cookie-session");
+const uri = process.env.MONGO_URI;
+const cors = require("cors");
 
 require('dotenv').config();
-const uri = process.env.MONGO_URI;
-
-const app = express();
 
 app.set("view engine", "hbs");
 app.engine(
@@ -22,9 +24,6 @@ app.engine(
   })
 );
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
 mongoose.set('strictQuery', true);
 mongoose
   .connect(uri)
@@ -36,15 +35,16 @@ mongoose
     console.error(`Connection refused: ${error}`);
   });
 
-const cors = require("cors");
+
 var corsOptions = {
   origin: "http://localhost:3001"
 };
+
 app.use(cors(corsOptions));
-
 app.use(express.static('public'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-const cookieSession = require("cookie-session");
 
 app.use(
   cookieSession({
@@ -88,34 +88,8 @@ function initial() {
   });
 }
 
-app.get('/votaciones_main', async (req, res) => {
-  try {
-    let encuestas = await Evento.find().lean();
-    
-    // Modifica los objetos en el array 'encuestas' para que todas las propiedades sean "propiedades propias"
-    encuestas = encuestas.map(encuesta => {
-      return {
-        _id: encuesta._id.toString(),
-        nombre: encuesta.nombre,
-        // Añade aquí cualquier otra propiedad que necesites
-      };
-    });
-
-    res.render('layouts/votaciones', { encuestas, layout: false });
-  } catch (error) {
-    console.error('Hubo un error al obtener las votaciones:', error);
-    res.status(500).send('Error al obtener las votaciones');
-  }
-});
-
-app.get('/votar_evento', async (req, res) => {
-  try {
-    const encuestas = await Evento.find().lean();
-    res.render('layouts/votar_evento', { encuestas, layout: false });
-  } catch (error) {
-    console.error('Hubo un error al obtener las votaciones:', error);
-    res.status(500).send('Error al obtener las votaciones');
-  }
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'layouts', 'index.html'));
 });
 
 initial();

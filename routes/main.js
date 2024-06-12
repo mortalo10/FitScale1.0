@@ -11,8 +11,9 @@ router.get('/index', (req, res) => {
   res.render('layouts/index');
 });
   
-router.get("/ingresado_con_exito", (req, res) => {
-    res.render('layouts/ingresado_con_exito', { layout: false });
-  });
+router.get("/historial", (req, res) => {
+    res.render('layouts/historial', { layout: false });
+});
+
 
 module.exports = router;
