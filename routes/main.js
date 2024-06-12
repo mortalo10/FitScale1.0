@@ -1,5 +1,4 @@
 const express = require('express');
-const Evento = require("../models/evento");
 const { authJwt, verifySignUp, } = require('../middlewares');
 
 const router = express.Router();
