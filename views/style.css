@@ -1,0 +1,6 @@
+.bg-image {
+    background-image: url('views/imagenes/background.png');
+    background-size: cover; /* Para que la imagen cubra todo el fondo */
+    background-position: center; /* Para centrar la imagen */
+    /* Otras propiedades opcionales como background-repeat, background-attachment, etc. */
+  }
