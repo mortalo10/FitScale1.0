@@ -24,6 +24,8 @@ app.engine(
   })
 );
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 mongoose.set('strictQuery', true);
 mongoose
   .connect(uri)
@@ -35,7 +37,6 @@ mongoose
     console.error(`Connection refused: ${error}`);
   });
 
-
 var corsOptions = {
   origin: "http://localhost:3001"
 };
@@ -44,7 +45,6 @@ app.use(cors(corsOptions));
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 
 app.use(
   cookieSession({
@@ -89,7 +89,7 @@ function initial() {
 }
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'layouts', 'index.html'));
+  res.render('layouts/index');
 });
 
 initial();
