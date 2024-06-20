@@ -79,6 +79,9 @@ router.get("/info_alimento", (req, res) =>{
   }
 
 })
+router.get("/ingresado_con_exito",(req,res)=>{
+  res.render('layouts/ingresado_con_exito');
+});
 
 
 module.exports = router;
