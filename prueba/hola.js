@@ -1,4 +1,8 @@
+    const dotenv = require("dotenv");
+    dotenv.config();
+
 document.addEventListener('DOMContentLoaded', (event) => {
+    
     const apiKey = process.env.API_KEY;
     const query = 'apple'; // Cambia esto por el alimento que quieres buscar
     const apiUrl = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${apiKey}&query=${query}`;

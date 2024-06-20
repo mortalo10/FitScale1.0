@@ -1,5 +1,6 @@
 document.querySelector('form').addEventListener('submit', function(event) {
-  // No se necesita event.preventDefault();
+  console.log('Form submitted');
+  event.preventDefault();// No se necesita event.preventDefault();
 
   const alimento = document.querySelector('#alimento').value;
 
@@ -12,10 +13,15 @@ document.querySelector('form').addEventListener('submit', function(event) {
       alimento: alimento 
     })
   })
-  .then(response => response.json())
+  .then(response =>{
+    console.log('Response status:', response.status);
+    return response.json();
+  })
   .then(data => {
+    console.log('Response data:', data);
     if (data.success) {
-      // No redirigir desde aquí
+    } else {
+      console.error('Error: Success flag is false');
     }
   })
   .catch((error) => {

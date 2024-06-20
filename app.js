@@ -29,7 +29,6 @@ app.listen(PORT, () => {
 });
 
 mongoose.set('strictQuery', true);
-console.log(typeof mongoURI)
 mongoose
   .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
