@@ -120,4 +120,5 @@ router.get('/usuarios/corriente', authJwt.verifyToken, async (req, res) => {
   }
 });
 
+
 module.exports = router;
