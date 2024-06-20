@@ -1,36 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodData Central API Example</title>
-    <!-- FontAwesome desde CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <!-- Bootstrap desde CDN -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Templatemo Style (puedes reemplazar esto por tus propios estilos) -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/templatemo-xtra-blog/1.0.0/css/templatemo-xtra-blog.min.css" rel="stylesheet">
-</head>
-<body>
-    <header class="tm-header" id="tm-header">
-        <!-- Tu contenido del header aquí -->
-    </header>
-    <div class="container-fluid">
-        <main class="tm-main">
-            <!-- Contenido de la API se cargará aquí -->
-            <div id="api-content" class="tm-mb-80">
-                
-            </div>
+<html lang="es" data-bs-theme="ligth">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Historial</title>
+        <!-- Bootstrap desde CDN -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    </head>
+    <style>
+        .color-primario{
+            background-color: #E7E7E7;
+        }
+        .color-segundario{
+            background-color: #7FB069;
+        }
+        .boton-primario{
+            background-color: #FC4A1A;
+        }
+        .texto-color{
+            color: #00008B;
+        }
+    </style>
+<body class="text-light color-primario"> 
 
-        </main>
-    </div>
+    {{> barrita_de_arriba}}
+
     <!-- jQuery desde CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Bootstrap JS desde CDN -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <!-- Tu script de la API -->
     <script src="/prueba/hola.js"></script>
+
 </body>
 </html>

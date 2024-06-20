@@ -10,8 +10,9 @@ const app = express();
 const cookieSession = require("cookie-session");
 const uri = process.env.MONGO_URI;
 const cors = require("cors");
+const dotenv = require("dotenv");
 
-require('dotenv').config();
+dotenv.config();
 
 app.set("view engine", "hbs");
 app.engine(
@@ -24,6 +25,10 @@ app.engine(
   })
 );
 
+app.use(cors(corsOptions));
+app.use(express.static('public'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 mongoose.set('strictQuery', true);
@@ -41,10 +46,8 @@ var corsOptions = {
   origin: "http://localhost:3001"
 };
 
-app.use(cors(corsOptions));
-app.use(express.static('public'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+
+
 
 app.use(
   cookieSession({

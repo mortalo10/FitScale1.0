@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    const apiKey = 'oPNgYFprb0PqcWLOiKgUzInSfuOJjquBfxZeRKiv';
+    const apiKey = process.env.API_KEY;
     const query = 'apple'; // Cambia esto por el alimento que quieres buscar
     const apiUrl = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${apiKey}&query=${query}`;
 
@@ -31,7 +31,6 @@ function displayFoodData(foods) {
             foodDiv.className = 'food-item';
             foodDiv.innerHTML = `
                 <h2>${food.description}</h2>
-                <p><strong>FDC ID:</strong> ${food.fdcId}</p>
                 <p><strong>Data Type:</strong> ${food.dataType}</p>
                 <p><strong>Published Date:</strong> ${food.publishedDate}</p>
                 <p><strong>Brand Name:</strong> ${food.brandName || 'N/A'}</p>

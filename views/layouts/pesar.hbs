@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="ligth">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Pesar</title>
+        <!-- Bootstrap desde CDN -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <style>
+            .color-primario{
+                background-color: #E7E7E7;
+            }
+            .color-segundario{
+                background-color: #7FB069;
+            }
+            .boton-primario{
+                background-color: #FC4A1A;
+            }
+            .texto-color{
+                color: #00008B;
+            }
+        </style>
+    </head>
+    
+<body class="text-light color-primario"> 
+
+    {{> barrita_de_arriba}}
+
+    <main class="d-flex align-items justify-content py-4 d-flex justify-content-center">
+        <form action="/pesar/alimento" method="post" class="py-5">
+            <div class="mx-4 p-4 border shadow"> 
+                <h1 class="h3 mb-3 fw-normal text-center text-black" class="">Ingrese el alimento que esta pesando</h1>
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="alimento" name="alimento" placeholder="" required>
+                </div>
+                <div class="mb-3"></div>
+                <input type="submit" class="form-control text-center boton-primario text-light" value="Ingresar">
+            </div>
+        </form>
+    </main>
+    <script src="/public/pesar_alimento.js"></script>
+</body>
+</html>
