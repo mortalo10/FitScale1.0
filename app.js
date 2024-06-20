@@ -1,3 +1,5 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require("express");
 const handlebars = require("express-handlebars");
 const session = require('express-session');
@@ -8,11 +10,8 @@ const Role = db.role;
 const path = require('path');
 const app = express();
 const cookieSession = require("cookie-session");
-const uri = process.env.MONGO_URI;
-const cors = require("cors");
-const dotenv = require("dotenv");
-
-dotenv.config();
+const mongoURI = process.env.MONGO_URI;
+const PORT = process.env.PORT;
 
 app.set("view engine", "hbs");
 app.engine(
@@ -25,15 +24,14 @@ app.engine(
   })
 );
 
-app.use(cors(corsOptions));
-app.use(express.static('public'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 
 mongoose.set('strictQuery', true);
+console.log(typeof mongoURI)
 mongoose
-  .connect(uri)
+  .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("Connected to Mongo Database");
     initial();
@@ -41,13 +39,21 @@ mongoose
   .catch((error) => {
     console.error(`Connection refused: ${error}`);
   });
+const cors = require("cors");
 
-var corsOptions = {
-  origin: "http://localhost:3001"
+const { log } = require("console");
+
+const corsOptions = {
+  origin: 'http://localhost:3001', // Cambia esto a tu dominio permitido
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
-
-
+app.use(cors(corsOptions));
+app.use(express.static('public'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(
   cookieSession({

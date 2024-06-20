@@ -3,7 +3,7 @@ const userRouter = require('./routes/user');
 const mainRouter = require('./routes/main');
 const routesRouter = require('./routes/routes');
 
-const port = process.env.PORT;
+
 
 app.use((req, res, next) => {
   console.log(`Received ${req.method} request for ${req.url}`);
@@ -14,6 +14,3 @@ app.use(userRouter);
 app.use(mainRouter);
 app.use(routesRouter);
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
