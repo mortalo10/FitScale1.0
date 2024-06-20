@@ -39,7 +39,7 @@ router.post("/pesar/alimento", (req, res) => {
   })
   .then(data => {
       console.log(data);// Ver la estructura de los datos en la consola
-      res.json(data.food[0]); // Enviar los datos al cliente
+      res.json(data.food); // Enviar los datos al cliente
       res.render('layouts/info_alimento', { layout: false });
   })
   .catch(error => {
