@@ -8,7 +8,7 @@ const Role = db.role;
 const path = require('path');
 const app = express();
 const cookieSession = require("cookie-session");
-const uri = process.env.MONGO_URI;
+const uri = "mongodb+srv://claudiocorrea1:oWU8w8rlAoO6pEzn@cluster0.a6uydqb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const cors = require("cors");
 const dotenv = require("dotenv");
 
@@ -31,6 +31,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+console.log("Mongo URI:", uri);
 mongoose.set('strictQuery', true);
 mongoose
   .connect(uri)
