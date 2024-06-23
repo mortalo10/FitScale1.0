@@ -25,10 +25,12 @@ router.get("/pesar", (req, res) => {
 });
 
 router.post("/pesar/alimento", (req, res) => {
-  console.log(req.body);
-  const { alimento }  = req.body;
+  const { alimento } = req.body ;
   const query = JSON.stringify(alimento);
-  const apiUrl = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${apiKey}&query=${query}`;
+  const dataType = ['Foundation', 'SR Legacy']; // Filtrando por tipos de datos relevantes para alimentos básicos
+  const pageSize = 1; // Número de resultados por página
+  const pageNumber = 1;// Número de página de los resultados
+  const apiUrl = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${apiKey}&query=${query}&dataType=${dataType.join(',')}&pageSize=${pageSize}&pageNumber=${pageNumber}`;
 
   fetch(apiUrl)
   .then(response => {
@@ -39,8 +41,7 @@ router.post("/pesar/alimento", (req, res) => {
   })
   .then(data => {
       console.log(data);// Ver la estructura de los datos en la consola
-      res.json(data.food); // Enviar los datos al cliente
-      res.render('layouts/info_alimento', { layout: false });
+      res.json(data); // Enviar los datos al cliente
   })
   .catch(error => {
       console.error('Error fetching data:', error);

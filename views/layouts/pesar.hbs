@@ -30,9 +30,15 @@
         <form action="/pesar/alimento" method="post" class="py-5">
             <div class="mx-4 p-4 border shadow"> 
                 <h1 class="h3 mb-3 fw-normal text-center text-black" class="">Ingrese el alimento que esta pesando</h1>
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="alimento" name="alimento" placeholder="" required>
-                </div>
+                <select class="form-select py-3 mb-2" id="descripcion" name="descripcion" required="">
+                    <option value="">Choose...</option>
+                    <option>Fruits and Fruit Juices</option>
+                    <option>Baked Products</option>
+                    <option>Baby Foods</option>
+                    <option>Sweets</option>
+                    <option>Beverages</option>
+                </select>
+                <input type="text" class="form-control py-3" id="alimento" name="alimento" placeholder="alimento" required>
                 <div class="mb-3"></div>
                 <input type="submit" class="form-control text-center boton-primario text-light" value="Ingresar">
             </div>
