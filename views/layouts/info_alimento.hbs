@@ -6,27 +6,93 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
-        .color-primario{
+        .color-primario {
             background-color: #E7E7E7;
         }
-        .color-segundario{
+        .color-segundario {
             background-color: #7FB069;
         }
-        .boton-primario{
+        .boton-primario {
             background-color: #FC4A1A;
+            border: none;
         }
-        .texto-color{
+        .boton-primario:hover {
+            background-color: #e04317;
+        }
+        .texto-color {
             color: #00008B;
         }
-
+        .card-custom {
+            margin-top: 20px;
+        }
+        .card-header-custom {
+            background-color: #7FB069;
+            color: white;
+        }
+        .badge-custom {
+            font-size: 1.1em;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .info-label {
+            flex: 1;
+            font-weight: bold;
+        }
+        .info-value {
+            flex: 1;
+            text-align: right;
+        }
     </style>
 </head>
-<body>
-    <h1>Información del Alimento</h1>
-    <p>Calorias: {{ calorias }}</p>
-    <p>Proteinas: {{ proteina }}</p>
-    <p>Grasa: {{ grasa }} </p>
-    <!-- Otros datos que desees mostrar -->
+<body class="color-primario">
+    {{> barrita_de_arriba }}
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card card-custom">
+                    <div class="card-header card-header-custom">
+                        <h2 class="card-title mb-0">Información del Alimento</h2>
+                    </div>
+                    <div class="card-body texto-color">
+                        <div class="info-row py-2">
+                            <div class="info-label text-dark">Calorías:</div>
+                            <div class="info-value text-dark">{{ calorias }} kcal</div>
+                        </div>
+                        <div class="info-row py-2">
+                            <div class="info-label text-dark">Proteínas:</div>
+                            <div class="info-value text-dark">{{ proteina }} g</div>
+                        </div>
+                        <div class="info-row py-2">
+                            <div class="info-label text-dark">Grasa:</div>
+                            <div class="info-value text-dark">{{ grasa }} g</div>
+                        </div>
+                        <div class="info-row py-2">
+                            <div class="info-label text-dark">Carbohidratos:</div>
+                            <div class="info-value text-dark">{{ carbohidratos }} g</div>
+                        </div>
+                        <div class="info-row py-2">
+                            <div class="info-label text-dark">Fibra:</div>
+                            <div class="info-value text-dark">{{ fibra }} g</div>
+                        </div>
+                        <div class="info-row py-2">
+                            <div class="info-label text-dark">Azúcar:</div>
+                            <div class="info-value text-dark">{{ azucar }} g</div>
+                        </div>
+                        <div class="info-row py-2">
+                            <div class="info-label text-dark">Sodio:</div>
+                            <div class="info-value text-dark">{{ sodio }} mg</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-</html>
 </html>

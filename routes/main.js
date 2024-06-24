@@ -63,13 +63,13 @@ router.post('/buscar-comida', async (req, res) => {
 
       if (comidaEncontrada) {
         // Devolver los atributos de la comida
-        const calorias = comidaEncontrada.calorias * peso;
-        const proteina = comidaEncontrada.proteina * peso;
-        const grasa = comidaEncontrada.grasa * peso;
-        const carbohidratos = comidaEncontrada.carbohidratos * peso;
-        const fibra = comidaEncontrada.fibra * peso;
-        const azucar = comidaEncontrada.azucar * peso;
-        const sodio = comidaEncontrada.sodio * peso;
+        const calorias = (comidaEncontrada.calorias * peso).toFixed(2);
+        const proteina = (comidaEncontrada.proteina * peso).toFixed(2);
+        const grasa = (comidaEncontrada.grasa * peso).toFixed(2);
+        const carbohidratos = (comidaEncontrada.carbohidratos * peso).toFixed(2);
+        const fibra = (comidaEncontrada.fibra * peso).toFixed(2);
+        const azucar = (comidaEncontrada.azucar * peso).toFixed(2);
+        const sodio = (comidaEncontrada.sodio * peso).toFixed(2);
 
         res.render('layouts/info_alimento', { layout: false, calorias, proteina, grasa, carbohidratos, fibra, azucar, sodio });
         
