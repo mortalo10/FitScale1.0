@@ -1,12 +1,15 @@
 const dotenv = require("dotenv");
 dotenv.config();
 const express = require('express');
+const bodyParser = require('body-parser');
+const router = express.Router();
 const { authJwt, verifySignUp, } = require('../middlewares');
 const { Types } = require("mongoose");
 const apiKey = process.env.API_KEY;
+const Comidas = require('../models/comidas.js');
+router.use(bodyParser.urlencoded({ extended: true }));
+router.use(bodyParser.json());
 
-
-const router = express.Router();
 
 router.get('/', function (req, res) {
   res.render('layouts/index');
@@ -24,7 +27,7 @@ router.get("/pesar", (req, res) => {
   res.render('layouts/pesar', { layout: false });
 });
 
-router.post("/pesar/alimento", (req, res) => {
+router.post("/pesar/alimento", async (req, res) => {
   const { alimento } = req.body ;
   const query = JSON.stringify(alimento);
   const dataType = ['Foundation', 'SR Legacy']; // Filtrando por tipos de datos relevantes para alimentos básicos
@@ -47,9 +50,36 @@ router.post("/pesar/alimento", (req, res) => {
       console.error('Error fetching data:', error);
       res.status(500).send('Error fetching data. Please try again later.');
   });
+});
 
-  
-  
+router.post('/buscar-comida', async (req, res) => {
+  try {
+      const peso = 50;
+      // Extraer el nombre del body de la petición
+      console.log(req.body);
+      const { alimento } = req.body;
+      // Buscar la comida en la base de datos por nombre
+      const comidaEncontrada = await Comidas.findOne({ name: alimento });
+
+      if (comidaEncontrada) {
+        // Devolver los atributos de la comida
+        const calorias = comidaEncontrada.calorias * peso;
+        const proteina = comidaEncontrada.proteina * peso;
+        const grasa = comidaEncontrada.grasa * peso;
+        const carbohidratos = comidaEncontrada.carbohidratos * peso;
+        const fibra = comidaEncontrada.fibra * peso;
+        const azucar = comidaEncontrada.azucar * peso;
+        const sodio = comidaEncontrada.sodio * peso;
+
+        res.render('layouts/info_alimento', { layout: false, calorias, proteina, grasa, carbohidratos, fibra, azucar, sodio });
+        
+      } else {
+          res.status(404).json({ message: 'Comida no encontrada' });
+      }
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Error al buscar la comida' });
+  }
 });
 
 router.get("/info_alimento", (req, res) =>{
