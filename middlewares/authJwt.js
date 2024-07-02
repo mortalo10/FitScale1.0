@@ -1,3 +1,5 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const jwt = require("jsonwebtoken");
 const config = require("../config/authConfig.js");
 const db = require("../models");
@@ -112,4 +114,11 @@ const authJwt = {
   verifyToken: verifyToken,
   isAdmin: isAdmin,
 };
+
+const payload = {
+    userId: 123,
+    username: 'usuario'
+};
+
+
 module.exports = authJwt;

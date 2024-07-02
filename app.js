@@ -13,6 +13,7 @@ const cookieSession = require("cookie-session");
 const mongoURI = process.env.MONGO_URI;
 const PORT = process.env.PORT;
 
+
 app.set("view engine", "hbs");
 app.engine(
   "hbs",
@@ -99,6 +100,25 @@ function initial() {
 app.get('/', (req, res) => {
   res.render('layouts/index');
 });
+
+const SerialPort = require('serialport');
+const parsers = SerialPort.parsers;
+const parser = new parsers.Readline({
+  delineter: '\r\n'
+});
+
+const PortArduino = new SerialPort('irl',{
+  baudRate: 9600,
+  dataBits: 8,
+  parity: 'none',
+  stopBits: 1,
+  flowControl: false
+});
+
+PortArduino.pipe(parser);
+
+parser.on('data', fuction(data));
+
 
 initial();
 

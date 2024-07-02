@@ -3,12 +3,13 @@ dotenv.config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const router = express.Router();
-const { authJwt, verifySignUp, } = require('../middlewares');
+const { authJwt, verifySignUp, obtenerTokenDeAcceso} = require('../middlewares');
 const { Types } = require("mongoose");
 const apiKey = process.env.API_KEY;
 const Comidas = require('../models/comidas.js');
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
+const axios = require('axios');
 
 
 router.get('/', function (req, res) {
@@ -54,30 +55,41 @@ router.post("/pesar/alimento", async (req, res) => {
 
 router.post('/buscar-comida', async (req, res) => {
   try {
-      const peso = 50;
-      // Extraer el nombre del body de la petición
-      console.log(req.body);
       const { alimento } = req.body;
+
       // Buscar la comida en la base de datos por nombre
       const comidaEncontrada = await Comidas.findOne({ name: alimento });
-
-      if (comidaEncontrada) {
-        // Devolver los atributos de la comida
-        const calorias = (comidaEncontrada.calorias * peso).toFixed(2);
-        const proteina = (comidaEncontrada.proteina * peso).toFixed(2);
-        const grasa = (comidaEncontrada.grasa * peso).toFixed(2);
-        const carbohidratos = (comidaEncontrada.carbohidratos * peso).toFixed(2);
-        const fibra = (comidaEncontrada.fibra * peso).toFixed(2);
-        const azucar = (comidaEncontrada.azucar * peso).toFixed(2);
-        const sodio = (comidaEncontrada.sodio * peso).toFixed(2);
-
-        res.render('layouts/info_alimento', { layout: false, calorias, proteina, grasa, carbohidratos, fibra, azucar, sodio });
-        
-      } else {
-          res.status(404).json({ message: 'Comida no encontrada' });
+      
+      if (!comidaEncontrada) {
+          return res.status(404).json({ message: 'Comida no encontrada' });
       }
+
+      const peso = pesaData.weight; // Asegúrate de ajustar esto según la estructura real de los datos recibidos
+      console.log('Peso obtenido:', peso);
+
+      // Calcular los atributos de la comida multiplicados por el peso obtenido de la pesa
+      const calorias = (comidaEncontrada.calorias * peso).toFixed(2);
+      const proteina = (comidaEncontrada.proteina * peso).toFixed(2);
+      const grasa = (comidaEncontrada.grasa * peso).toFixed(2);
+      const carbohidratos = (comidaEncontrada.carbohidratos * peso).toFixed(2);
+      const fibra = (comidaEncontrada.fibra * peso).toFixed(2);
+      const azucar = (comidaEncontrada.azucar * peso).toFixed(2);
+      const sodio = (comidaEncontrada.sodio * peso).toFixed(2);
+
+      // Renderizar la plantilla con los datos de la comida y los atributos calculados
+      res.render('layouts/info_alimento', {
+          layout: false,
+          calorias,
+          proteina,
+          grasa,
+          carbohidratos,
+          fibra,
+          azucar,
+          sodio
+      });
+
   } catch (err) {
-      console.error(err);
+      console.error('Error al buscar la comida:', err.message);
       res.status(500).json({ message: 'Error al buscar la comida' });
   }
 });
@@ -109,10 +121,21 @@ router.get("/info_alimento", (req, res) =>{
     }
   }
 
+  
+
 })
+
 router.get("/ingresado_con_exito",(req,res)=>{
-  res.render('layouts/ingresado_con_exito');
+  res.render('layouts/ingresado_con_exito', { layout: false });
 });
 
+router.get('/estadisticas', async (req, res) => {
+  try {
+      const data = await DataModel.find();
+      res.json(data);
+  } catch (err) {
+      res.status(500).send(err);
+  }
+});
 
 module.exports = router;
