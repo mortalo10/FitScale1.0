@@ -46,6 +46,7 @@
             text-align: right;
         }
     </style>
+    <script src="/socket.io/socket.io.js"></script>
 </head>
 <body class="color-primario">
     {{> barrita_de_arriba }}
@@ -57,6 +58,10 @@
                         <h2 class="card-title mb-0">Información del Alimento</h2>
                     </div>
                     <div class="card-body texto-color">
+                        <div class="info-row py-2">
+                            <div class="info-label text-dark">Calorías:</div>
+                            <div class="info-value text-dark">{{ calorias }} kcal</div>
+                        </div>
                         <div class="info-row py-2">
                             <div class="info-label text-dark">Calorías:</div>
                             <div class="info-value text-dark">{{ calorias }} kcal</div>
@@ -90,6 +95,14 @@
             </div>
         </div>
     </div>
+   <script>
+        const socket = io();
+        socket.on('data', (data) => {
+            console.log('Data from Arduino:', data);
+            document.getElementById('data').innerText = data;
+        });
+    </script>
+    
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

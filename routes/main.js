@@ -63,8 +63,8 @@ router.post('/buscar-comida', async (req, res) => {
       if (!comidaEncontrada) {
           return res.status(404).json({ message: 'Comida no encontrada' });
       }
-
-      const peso = pesaData.weight; // Asegúrate de ajustar esto según la estructura real de los datos recibidos
+      
+      // Asegúrate de ajustar esto según la estructura real de los datos recibidos
       console.log('Peso obtenido:', peso);
 
       // Calcular los atributos de la comida multiplicados por el peso obtenido de la pesa

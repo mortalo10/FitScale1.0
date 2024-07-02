@@ -1,6 +1,10 @@
 const dotenv = require("dotenv");
 dotenv.config();
 const express = require("express");
+const http = require('http');
+const socketIo = require('socket.io');
+const SerialPort = require('serialport');
+const parsers = SerialPort.parsers;
 const handlebars = require("express-handlebars");
 const session = require('express-session');
 const mongoose = require('mongoose');
@@ -13,6 +17,7 @@ const cookieSession = require("cookie-session");
 const mongoURI = process.env.MONGO_URI;
 const PORT = process.env.PORT;
 
+const server = http.createServer(app);
 
 app.set("view engine", "hbs");
 app.engine(
@@ -101,13 +106,11 @@ app.get('/', (req, res) => {
   res.render('layouts/index');
 });
 
-const SerialPort = require('serialport');
-const parsers = SerialPort.parsers;
 const parser = new parsers.Readline({
-  delineter: '\r\n'
+  delimiter: '\r\n'
 });
 
-const PortArduino = new SerialPort('irl',{
+const PortArduino = new SerialPort('COM3', {  // Ajusta 'COM3' según tu configuración
   baudRate: 9600,
   dataBits: 8,
   parity: 'none',
@@ -117,7 +120,25 @@ const PortArduino = new SerialPort('irl',{
 
 PortArduino.pipe(parser);
 
-parser.on('data', fuction(data));
+const io = socketIo(server);
+
+io.on('connection', (socket) => {
+  console.log('Node.js is listening!');
+
+  parser.on('data', (data) => {
+    console.log(data);
+    socket.emit('data', data);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('User disconnected');
+  });
+});
+
+parser.on('data', function(data){
+  console.log(data);
+  io.emit('data', data);
+});
 
 
 initial();
