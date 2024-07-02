@@ -7,6 +7,7 @@ const { authJwt, verifySignUp, obtenerTokenDeAcceso} = require('../middlewares')
 const { Types } = require("mongoose");
 const apiKey = process.env.API_KEY;
 const Comidas = require('../models/comidas.js');
+const Historial= require('../models/historial.js');
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 const axios = require('axios');
@@ -20,14 +21,13 @@ router.get('/index', (req, res) => {
   res.render('layouts/index');
 });
   
-router.get("/historial", (req, res) => {
-    res.render('layouts/historial', { layout: false });
-});
 
 router.get("/pesar", (req, res) => {
   res.render('layouts/pesar', { layout: false });
 });
-
+router.get("/historial", (req,res)=>{
+  res.render('/layouts/historial',{layout: false});
+});
 router.post("/pesar/alimento", async (req, res) => {
   const { alimento } = req.body ;
   const query = JSON.stringify(alimento);
@@ -63,8 +63,8 @@ router.post('/buscar-comida', async (req, res) => {
       if (!comidaEncontrada) {
           return res.status(404).json({ message: 'Comida no encontrada' });
       }
-      
-      // Asegúrate de ajustar esto según la estructura real de los datos recibidos
+
+      const peso =1;
       console.log('Peso obtenido:', peso);
 
       // Calcular los atributos de la comida multiplicados por el peso obtenido de la pesa
@@ -126,6 +126,39 @@ router.get("/info_alimento", (req, res) =>{
 
 })
 
+
+router.post('/historial_alimento', async (req, res) => {
+  try {
+
+    Historial.forEach(historial=>{
+      const calorias = (historial.calorias ).toFixed(2);
+      const proteina = (historial.proteina ).toFixed(2);
+      const grasa = (historial.grasa).toFixed(2);
+      const carbohidratos = (historial.carbohidratos).toFixed(2);
+      const fibra = (historial.fibra).toFixed(2);
+      const azucar = (historial.azucar).toFixed(2);
+      const sodio = (historial.sodio ).toFixed(2);
+
+      // Renderizar la plantilla con los datos de la comida y los atributos calculados
+      res.render('layouts/historial_alimento', {
+          layout: false,
+          peso,
+          calorias,
+          proteina,
+          grasa,
+          carbohidratos,
+          fibra,
+          azucar,
+          sodio
+      });
+    })
+     
+
+  } catch (err) {
+      console.error('Error al buscar la comida:', err.message);
+      res.status(500).json({ message: 'Error al buscar la comida' });
+  }
+});
 router.get("/ingresado_con_exito",(req,res)=>{
   res.render('layouts/ingresado_con_exito', { layout: false });
 });

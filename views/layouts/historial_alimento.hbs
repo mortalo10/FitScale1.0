@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="ligth">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Historial</title>
+        <!-- Bootstrap desde CDN -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    </head>
+    <style>
+        .color-primario{
+            background-color: #E7E7E7;
+        }
+        .color-segundario{
+            background-color: #7FB069;
+        }
+        .boton-primario{
+            background-color: #FC4A1A;
+        }
+        .texto-color{
+            color: #00008B;
+        }
+    </style>
+<body class="text-light color-primario"> 
+
+    {{> barrita_de_arriba}}
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card card-custom">
+                    <div class="card-header card-header-custom">
+                        <h2 class="card-title mb-0">Historial</h2>
+                    </div>
+                    <div class="card-body texto-color">
+                        <div class="info-row py-2">
+                            <div class="info-label text-dark">Nombre:</div>
+                            <div class="info-value text-dark">{{ nombre }}</div>
+                        </div>
+                        <div class="card-body texto-color">
+                        <div class="info-row py-2">
+                            <div class="info-label text-dark">Peso:</div>
+                            <div class="info-value text-dark">{{ peso }}</div>
+                        </div>
+                    <div class="card-body texto-color">
+                        <div class="info-row py-2">
+                            <div class="info-label text-dark">Calorías:</div>
+                            <div class="info-value text-dark">{{ calorias }} kcal</div>
+                        </div>
+                        <div class="info-row py-2">
+                            <div class="info-label text-dark">Proteínas:</div>
+                            <div class="info-value text-dark">{{ proteina }} g</div>
+                        </div>
+                        <div class="info-row py-2">
+                            <div class="info-label text-dark">Grasa:</div>
+                            <div class="info-value text-dark">{{ grasa }} g</div>
+                        </div>
+                        <div class="info-row py-2">
+                            <div class="info-label text-dark">Carbohidratos:</div>
+                            <div class="info-value text-dark">{{ carbohidratos }} g</div>
+                        </div>
+                        <div class="info-row py-2">
+                            <div class="info-label text-dark">Fibra:</div>
+                            <div class="info-value text-dark">{{ fibra }} g</div>
+                        </div>
+                        <div class="info-row py-2">
+                            <div class="info-label text-dark">Azúcar:</div>
+                            <div class="info-value text-dark">{{ azucar }} g</div>
+                        </div>
+                        <div class="info-row py-2">
+                            <div class="info-label text-dark">Sodio:</div>
+                            <div class="info-value text-dark">{{ sodio }} mg</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
