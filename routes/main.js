@@ -79,6 +79,7 @@ router.post('/buscar-comida', async (req, res) => {
       // Renderizar la plantilla con los datos de la comida y los atributos calculados
       res.render('layouts/info_alimento', {
           layout: false,
+          peso,
           calorias,
           proteina,
           grasa,
