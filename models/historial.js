@@ -40,6 +40,6 @@ const historialSchema = new Schema({
     }
 });
 
-const Historial = mongoose.model('Comidas', historialSchema);
+const Historial = mongoose.model('historial', historialSchema);
 
 module.exports = Historial;
