@@ -110,7 +110,7 @@ const parser = new parsers.Readline({
   delimiter: '\r\n'
 });
 
-const PortArduino = new SerialPort('COM3', {  // Ajusta 'COM3' según tu configuración
+const PortArduino = new SerialPort('COM4', {  // Ajusta 'COM4' según tu configuración
   baudRate: 9600,
   dataBits: 8,
   parity: 'none',
